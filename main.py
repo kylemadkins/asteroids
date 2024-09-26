@@ -20,7 +20,7 @@ def main():
     Asteroid.containers = (updatable, drawable)
     AsteroidField.containers = (updatable,)
 
-    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     AsteroidField()
 
     while True:
@@ -34,6 +34,10 @@ def main():
         # Update
         for thing in updatable:
             thing.update(dt)
+
+            if isinstance(thing, Asteroid) and thing.is_colliding(player):
+                print("Game over!")
+                exit()
 
         # Render
         window.fill((0, 0, 0))
